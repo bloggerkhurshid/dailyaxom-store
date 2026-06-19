@@ -36,6 +36,24 @@ export default function Profile() {
 
   if (!user) return null;
 
+  const calculateExpiry = (expiresAt) => {
+    if (!expiresAt) return 'Unknown';
+    // Replace hyphens with slashes for Safari compatibility
+    const expiryDate = new Date(expiresAt.replace(/-/g, '/'));
+    const now = new Date();
+    const diffTime = expiryDate - now;
+    
+    if (diffTime <= 0) return 'Expired';
+    
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    if (diffDays > 0) return `${diffDays} days`;
+    
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    if (diffHours > 0) return `${diffHours} hours`;
+    
+    return 'Less than an hour';
+  };
+
   return (
     <div className="profile-container" style={{ width: '100%', margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem', paddingBottom: '1rem', borderBottom: '1px solid #eaeaea' }}>
@@ -57,21 +75,36 @@ export default function Profile() {
               <tr style={{ background: 'rgba(255,255,255,0.4)' }}>
                 <th style={{ padding: '1.25rem 1.5rem', fontWeight: 600, color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Ebook Title</th>
                 <th style={{ padding: '1.25rem 1.5rem', fontWeight: 600, color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Purchased On</th>
+                <th style={{ padding: '1.25rem 1.5rem', fontWeight: 600, color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Expires In</th>
                 <th style={{ padding: '1.25rem 1.5rem', fontWeight: 600, textAlign: 'right', color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Action</th>
               </tr>
             </thead>
             <tbody>
-              {purchases.map(item => (
-                <tr key={item.order_id}>
-                  <td style={{ padding: '1.25rem 1.5rem', fontWeight: 500, border: '1px solid var(--glass-border)' }}>{item.title}</td>
-                  <td style={{ padding: '1.25rem 1.5rem', color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>{new Date(item.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
-                  <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right', border: '1px solid var(--glass-border)' }}>
-                    <a href={`https://digital.devkayy.in/api/download.php?token=${item.token}`} download target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px' }}>
-                      Download
-                    </a>
-                  </td>
-                </tr>
-              ))}
+              {purchases.map(item => {
+                const expiryStatus = calculateExpiry(item.expires_at);
+                const isExpired = expiryStatus === 'Expired';
+                
+                return (
+                  <tr key={item.order_id}>
+                    <td style={{ padding: '1.25rem 1.5rem', fontWeight: 500, border: '1px solid var(--glass-border)' }}>{item.title}</td>
+                    <td style={{ padding: '1.25rem 1.5rem', color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>{new Date(item.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
+                    <td style={{ padding: '1.25rem 1.5rem', color: isExpired ? '#b91c1c' : 'var(--text-secondary)', fontWeight: isExpired ? 600 : 400, border: '1px solid var(--glass-border)' }}>
+                      {expiryStatus}
+                    </td>
+                    <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right', border: '1px solid var(--glass-border)' }}>
+                      {isExpired ? (
+                        <button disabled className="btn" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px', background: '#e5e7eb', color: '#9ca3af', cursor: 'not-allowed' }}>
+                          Expired
+                        </button>
+                      ) : (
+                        <a href={`https://digital.devkayy.in/api/download.php?token=${item.token}`} download target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px' }}>
+                          Download
+                        </a>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
