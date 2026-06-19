@@ -100,7 +100,7 @@ export default function Checkout() {
       });
       const data = await response.json();
       if(data.status === 'success' && data.payment_session_id) {
-        const cashfree = await load({ mode: "sandbox" });
+        const cashfree = await load({ mode: "production" });
         await cashfree.checkout({ 
           paymentSessionId: data.payment_session_id,
           redirectTarget: "_self" 
