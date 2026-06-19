@@ -1,7 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { load } from '@cashfreepayments/cashfree-js';
+
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    if (window.Razorpay) {
+      return resolve(true);
+    }
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
 
 export default function Checkout() {
   const { productId } = useParams();
@@ -99,12 +111,56 @@ export default function Checkout() {
         })
       });
       const data = await response.json();
-      if(data.status === 'success' && data.payment_session_id) {
-        const cashfree = await load({ mode: "production" });
-        await cashfree.checkout({ 
-          paymentSessionId: data.payment_session_id,
-          redirectTarget: "_self" 
+      if(data.status === 'success' && data.razorpay_order_id) {
+        const res = await loadRazorpayScript();
+        if (!res) {
+          alert('Razorpay SDK failed to load. Are you online?');
+          return;
+        }
+
+        const options = {
+          key: data.key_id,
+          amount: data.amount,
+          currency: data.currency,
+          name: "DailyAxom Store",
+          description: "Ebook Purchase",
+          order_id: data.razorpay_order_id,
+          handler: async function (response) {
+            try {
+              const verifyRes = await fetch('https://digital.devkayy.in/api/verify.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature
+                })
+              });
+              const verifyData = await verifyRes.json();
+              if (verifyData.status === 'success') {
+                navigate('/success?order_id=' + data.razorpay_order_id);
+              } else {
+                alert('Payment verification failed: ' + verifyData.message);
+              }
+            } catch (err) {
+              alert('Error verifying payment.');
+            }
+          },
+          prefill: {
+            name: data.customer_name,
+            email: data.customer_email,
+            contact: data.customer_phone
+          },
+          theme: {
+            color: "#000000"
+          }
+        };
+
+        const rzp1 = new window.Razorpay(options);
+        rzp1.on('payment.failed', function (response){
+            alert("Payment Failed: " + response.error.description);
         });
+        rzp1.open();
       } else {
         alert("Checkout failed: " + data.message);
       }

@@ -19,7 +19,7 @@ const Privacy = () => {
 
         <section>
           <h2>3. Payment Security</h2>
-          <p>Payment processing is handled securely by Cashfree. We do not store or have access to your raw credit card details or banking information.</p>
+          <p>Payment processing is handled securely by Razorpay. We do not store or have access to your raw credit card details or banking information.</p>
         </section>
       </div>
     </div>
