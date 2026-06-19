@@ -122,8 +122,9 @@ export default function Checkout() {
           key: data.key_id,
           amount: data.amount,
           currency: data.currency,
-          name: "DailyAxom Store",
+          name: "DailyAxom",
           description: "Ebook Purchase",
+          image: "https://lh3.googleusercontent.com/StPwRy2zA-7h655s7Ugj4e1RhfmTQcp-RW7qvp6Q14H72Ps_0f7Dko6j0oWL5l3yLlpvxx4JtBK7XQ5F1pdy",
           order_id: data.razorpay_order_id,
           handler: async function (response) {
             try {
