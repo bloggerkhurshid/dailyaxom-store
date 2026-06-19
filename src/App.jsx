@@ -23,10 +23,6 @@ function App() {
       <BrowserRouter>
         <div className="app-container">
           <Routes>
-            {/* Auth Routes - Full Screen, No Navbar/Footer */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            
             {/* Main Application Routes */}
             <Route path="/*" element={
               <>
@@ -34,6 +30,8 @@ function App() {
                 <main className="main-content">
                   <Routes>
                     <Route path="/" element={<Storefront />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                     <Route path="/checkout/:productId" element={<Checkout />} />
                     <Route path="/success" element={<Success />} />
                     <Route path="/profile" element={<Profile />} />

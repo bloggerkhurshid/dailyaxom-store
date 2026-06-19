@@ -50,39 +50,29 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-split-layout">
-      <div className="auth-split-left">
-        <img src="https://lh3.googleusercontent.com/StPwRy2zA-7h655s7Ugj4e1RhfmTQcp-RW7qvp6Q14H72Ps_0f7Dko6j0oWL5l3yLlpvxx4JtBK7XQ5F1pdy" alt="Logo" style={{ height: '60px', borderRadius: '8px', marginBottom: '2rem' }} />
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem', fontFamily: 'Outfit, sans-serif' }}>DailyAxom Store</h1>
-        <p style={{ fontSize: '1.1rem', opacity: 0.8, maxWidth: '300px' }}>Your premium destination for the best study materials and preparation guides.</p>
-      </div>
+    <div style={{ maxWidth: '500px', margin: '4rem auto', padding: '3rem 2.5rem', background: 'var(--bg-primary)', border: '1px solid var(--border-color)' }}>
+        <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', fontFamily: 'Outfit, sans-serif', textAlign: 'center', color: 'var(--text-primary)' }}>Welcome back</h2>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: '2.5rem', fontSize: '1rem', textAlign: 'center' }}>Login to access your premium ebooks.</p>
 
-      <div className="auth-split-right">
-        <div className="auth-form-wrapper">
-          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', fontFamily: 'Outfit, sans-serif' }}>Welcome back</h2>
-          <p style={{ color: '#666', marginBottom: '2rem', fontSize: '0.95rem' }}>Login to access your premium ebooks.</p>
+        {successMsg && <div style={{ background: '#dcfce7', color: '#166534', padding: '1rem', marginBottom: '1.5rem', fontSize: '0.9rem', border: '1px solid #bbf7d0', textAlign: 'center' }}>{successMsg}</div>}
+        {error && <div style={{ background: '#fee2e2', color: '#ef4444', padding: '1rem', marginBottom: '1.5rem', fontSize: '0.9rem', border: '1px solid #fecaca', textAlign: 'center' }}>{error}</div>}
 
-          {successMsg && <div style={{ background: '#dcfce7', color: '#166534', padding: '0.75rem', borderRadius: '6px', marginBottom: '1.5rem', fontSize: '0.9rem' }}>{successMsg}</div>}
-          {error && <div style={{ background: '#fee2e2', color: '#ef4444', padding: '0.75rem', borderRadius: '6px', marginBottom: '1.5rem', fontSize: '0.9rem' }}>{error}</div>}
-
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Email</label>
-              <input type="email" name="email" placeholder="you@example.com" className="form-input" value={formData.email} onChange={handleChange} required />
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input type="password" name="password" placeholder="Your password" className="form-input" value={formData.password} onChange={handleChange} required />
-            </div>
-            <button type="submit" className="btn btn-primary w-full" disabled={loading} style={{ marginTop: '1rem', padding: '1rem' }}>
-              {loading ? 'Logging in...' : 'Login'}
-            </button>
-          </form>
-          <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.9rem', color: '#666' }}>
-            Don't have an account? <Link to="/register" style={{ color: '#000', fontWeight: '600' }}>Register here</Link>
-          </p>
-        </div>
-      </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Email</label>
+            <input type="email" name="email" placeholder="you@example.com" className="form-input" style={{ width: '100%', borderRadius: '0px' }} value={formData.email} onChange={handleChange} required />
+          </div>
+          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Password</label>
+            <input type="password" name="password" placeholder="Your password" className="form-input" style={{ width: '100%', borderRadius: '0px' }} value={formData.password} onChange={handleChange} required />
+          </div>
+          <button type="submit" className="btn btn-primary w-full" disabled={loading} style={{ width: '100%', marginTop: '1rem', padding: '1rem', fontSize: '1.1rem', fontWeight: 600, borderRadius: '0px' }}>
+            {loading ? 'Logging in...' : 'Login to Continue'}
+          </button>
+        </form>
+        <p style={{ textAlign: 'center', marginTop: '2rem', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
+          Don't have an account? <Link to="/register" style={{ color: 'var(--text-primary)', fontWeight: '600', textDecoration: 'underline' }}>Register here</Link>
+        </p>
     </div>
   );
 }
