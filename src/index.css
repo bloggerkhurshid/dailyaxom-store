@@ -373,6 +373,24 @@ a {
 .mt-2 { margin-top: 2rem; }
 .w-full { width: 100%; }
 
+/* Rich Text Formatting */
+.rich-text {
+  word-break: break-word;
+}
+.rich-text p {
+  margin-bottom: 1rem;
+}
+.rich-text ul, .rich-text ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.rich-text li {
+  margin-bottom: 0.25rem;
+}
+.rich-text strong, .rich-text b {
+  font-weight: 600;
+}
+
 /* Auth Split Layout */
 .auth-split-layout {
   display: flex;

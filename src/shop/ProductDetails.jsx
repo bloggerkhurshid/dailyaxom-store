@@ -18,7 +18,7 @@ export default function ProductDetails() {
       .then(res => res.json())
       .then(data => {
         if (data.status === 'success') {
-          const found = data.data.find(p => p.id === parseInt(productId));
+          const found = data.data.find(p => parseInt(p.id) === parseInt(productId));
           setProduct(found);
         }
       })
@@ -102,6 +102,7 @@ export default function ProductDetails() {
               About this Ebook
             </h3>
             <div 
+              className="rich-text"
               style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '1.05rem', whiteSpace: 'pre-wrap' }}
               dangerouslySetInnerHTML={{ __html: product.description }}
             />
