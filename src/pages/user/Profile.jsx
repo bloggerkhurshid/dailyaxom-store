@@ -92,15 +92,20 @@ export default function Profile() {
                       {expiryStatus}
                     </td>
                     <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right', border: '1px solid var(--glass-border)' }}>
-                      {isExpired ? (
-                        <button disabled className="btn" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px', background: '#e5e7eb', color: '#9ca3af', cursor: 'not-allowed' }}>
-                          Expired
-                        </button>
-                      ) : (
-                        <a href={`https://digital.devkayy.in/api/download.php?token=${item.token}`} download target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px' }}>
-                          Download
+                      <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                        <a href={`https://digital.devkayy.in/api/receipt.php?token=${item.token}`} target="_blank" rel="noreferrer" className="btn" style={{ padding: '0.6rem 1rem', fontSize: '0.85rem', borderRadius: '0px', background: '#f8fafc', color: '#0f172a', border: '1px solid #e2e8f0', textDecoration: 'none' }}>
+                          Receipt
                         </a>
-                      )}
+                        {isExpired ? (
+                          <button disabled className="btn" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px', background: '#e5e7eb', color: '#9ca3af', cursor: 'not-allowed', border: 'none' }}>
+                            Expired
+                          </button>
+                        ) : (
+                          <a href={`https://digital.devkayy.in/api/download.php?token=${item.token}`} download target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px', textDecoration: 'none' }}>
+                            Download
+                          </a>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );
