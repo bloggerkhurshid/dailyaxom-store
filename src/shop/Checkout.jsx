@@ -30,7 +30,7 @@ export default function Checkout() {
   const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://digital.devkayy.in/api/products.php?id=${productId}`)
+    fetch(`/api/products.php?id=${productId}`)
       .then(res => res.json())
       .then(data => {
         if(data.status === 'success') {
@@ -73,7 +73,7 @@ export default function Checkout() {
     }
 
     try {
-      const res = await fetch(`https://digital.devkayy.in${endpoint}`, {
+      const res = await fetch(`${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(authData)
@@ -101,7 +101,7 @@ export default function Checkout() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch('https://digital.devkayy.in/api/checkout.php', {
+      const response = await fetch('/api/checkout.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -128,7 +128,7 @@ export default function Checkout() {
           order_id: data.razorpay_order_id,
           handler: async function (response) {
             try {
-              const verifyRes = await fetch('https://digital.devkayy.in/api/verify.php', {
+              const verifyRes = await fetch('/api/verify.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

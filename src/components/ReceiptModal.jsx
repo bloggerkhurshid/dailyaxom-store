@@ -9,7 +9,7 @@ export default function ReceiptModal({ token, onClose }) {
   const receiptRef = useRef(null);
 
   useEffect(() => {
-    fetch(`https://digital.devkayy.in/api/receipt.php?token=${token}`)
+    fetch(`/api/receipt.php?token=${token}`)
       .then(res => res.json())
       .then(data => {
         if (data.status === 'success') {

@@ -14,7 +14,7 @@ export default function ProductDetails() {
     
     // We fetch all products and find the specific one. 
     // Ideally, we'd have a specific /api/public/products.php?id=... endpoint.
-    fetch('https://digital.devkayy.in/api/products.php')
+    fetch('/api/products.php')
       .then(res => res.json())
       .then(data => {
         if (data.status === 'success') {
@@ -56,7 +56,7 @@ export default function ProductDetails() {
         <div style={{ flex: '1 1 250px', maxWidth: '320px' }}>
           <div style={{ background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1rem', overflow: 'hidden' }}>
             <img 
-              src={`https://digital.devkayy.in/${product.cover_image}`} 
+              src={`/${product.cover_image}`} 
               alt={product.title} 
               style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '8px' }}
             />
@@ -86,11 +86,11 @@ export default function ProductDetails() {
             
             {product.sample_pdf_path && (
               <a 
-                href={`https://digital.devkayy.in/${product.sample_pdf_path}`} 
+                href={`/${product.sample_pdf_path}`} 
                 target="_blank" 
                 rel="noreferrer" 
                 className="btn btn-secondary" 
-                style={{ flex: 1, minWidth: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '1rem', textDecoration: 'none' }}
+                style={{ flex: 1, minWidth: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '1rem', textDecoration: 'none', border: '1.5px solid var(--text-primary)' }}
               >
                 <Download size={20} /> Sample PDF
               </a>

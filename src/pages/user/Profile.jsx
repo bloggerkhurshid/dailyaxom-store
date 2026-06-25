@@ -16,7 +16,7 @@ export default function Profile() {
       return;
     }
 
-    fetch('https://digital.devkayy.in/api/user/profile.php', {
+    fetch('/api/user/profile.php', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -103,7 +103,7 @@ export default function Profile() {
                             Expired
                           </button>
                         ) : (
-                          <a href={`https://digital.devkayy.in/api/download.php?token=${item.token}`} download target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px', textDecoration: 'none' }}>
+                          <a href={`/api/download.php?token=${item.token}`} download target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px', textDecoration: 'none' }}>
                             Download
                           </a>
                         )}
