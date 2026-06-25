@@ -299,14 +299,7 @@ export default function Checkout() {
             </div>
         </section>
 
-        {/* 4. About Section */}
-        <section>
-            <div 
-              className="product-description-content"
-              style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.8' }}
-              dangerouslySetInnerHTML={{ __html: product.description || 'No description available for this ebook.' }}
-            />
-        </section>
+
 
       </div>
   );

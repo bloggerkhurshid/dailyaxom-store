@@ -53,7 +53,7 @@ export default function ProductDetails() {
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '3rem' }}>
         {/* Left Side: Image */}
-        <div style={{ flex: '1 1 300px', maxWidth: '400px' }}>
+        <div style={{ flex: '1 1 250px', maxWidth: '320px' }}>
           <div style={{ background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1rem', overflow: 'hidden' }}>
             <img 
               src={`https://digital.devkayy.in/${product.cover_image}`} 
