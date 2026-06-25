@@ -63,7 +63,7 @@ export default function Profile() {
           <h1 style={{ fontSize: '2.5rem', fontFamily: 'Outfit, sans-serif' }}>My Profile</h1>
           <p style={{ color: '#666', marginTop: '0.5rem' }}>Welcome back, {user.full_name}</p>
         </div>
-        <button onClick={() => { logout(); navigate('/'); }} className="btn btn-secondary">Logout</button>
+        <button onClick={() => { logout(); navigate('/'); }} className="btn btn-secondary" style={{ color: '#ef4444', borderColor: '#fca5a5', background: '#fef2f2' }}>Logout</button>
       </div>
 
       <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', fontFamily: 'Outfit, sans-serif' }}>My Ebooks</h2>
