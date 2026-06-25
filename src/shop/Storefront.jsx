@@ -38,7 +38,7 @@ export default function Storefront() {
                 <h2 className="category-title">{cat}</h2>
                 <div className="product-row">
                   {catProducts.map(product => (
-                    <Link key={product.id} to={`/checkout/${product.id}`} className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+                    <Link key={product.id} to={`/product/${product.id}`} className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
                       <div className="card-img-wrapper">
                         <img src={`https://digital.devkayy.in/${product.cover_image}`} alt={product.title} className="card-img" />
                       </div>

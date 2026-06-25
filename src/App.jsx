@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 
 // Shop Pages
 import Storefront from './shop/Storefront';
+import ProductDetails from './shop/ProductDetails';
 import Checkout from './shop/Checkout';
 import Profile from './pages/user/Profile';
 import Register from './pages/auth/Register';
@@ -30,6 +31,7 @@ function App() {
                 <main className="main-content">
                   <Routes>
                     <Route path="/" element={<Storefront />} />
+                    <Route path="/product/:productId" element={<ProductDetails />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/checkout/:productId" element={<Checkout />} />
