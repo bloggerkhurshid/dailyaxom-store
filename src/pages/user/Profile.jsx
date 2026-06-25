@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import ReceiptModal from '../../components/ReceiptModal';
 
 export default function Profile() {
   const { user, token, logout } = useContext(AuthContext);
   const [purchases, setPurchases] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedReceiptToken, setSelectedReceiptToken] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -93,9 +95,9 @@ export default function Profile() {
                     </td>
                     <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right', border: '1px solid var(--glass-border)' }}>
                       <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-                        <a href={`https://digital.devkayy.in/api/receipt.php?token=${item.token}`} target="_blank" rel="noreferrer" className="btn" style={{ padding: '0.6rem 1rem', fontSize: '0.85rem', borderRadius: '0px', background: '#f8fafc', color: '#0f172a', border: '1px solid #e2e8f0', textDecoration: 'none' }}>
+                        <button onClick={() => setSelectedReceiptToken(item.token)} className="btn" style={{ padding: '0.6rem 1rem', fontSize: '0.85rem', borderRadius: '0px', background: '#f8fafc', color: '#0f172a', border: '1px solid #e2e8f0', cursor: 'pointer' }}>
                           Receipt
-                        </a>
+                        </button>
                         {isExpired ? (
                           <button disabled className="btn" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px', background: '#e5e7eb', color: '#9ca3af', cursor: 'not-allowed', border: 'none' }}>
                             Expired
@@ -118,6 +120,10 @@ export default function Profile() {
           <p style={{ color: '#666', marginBottom: '1rem' }}>You haven't purchased any ebooks yet.</p>
           <button onClick={() => navigate('/')} className="btn btn-primary">Browse Store</button>
         </div>
+      )}
+
+      {selectedReceiptToken && (
+        <ReceiptModal token={selectedReceiptToken} onClose={() => setSelectedReceiptToken(null)} />
       )}
     </div>
   );
