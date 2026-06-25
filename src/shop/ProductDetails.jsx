@@ -51,9 +51,9 @@ export default function ProductDetails() {
         <ArrowLeft size={18} /> Back to Store
       </button>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '3rem' }}>
-        {/* Left Side: Image */}
-        <div style={{ flex: '1 1 250px', maxWidth: '320px' }}>
+      <div className="product-details-container">
+        {/* Top Side: Image */}
+        <div className="product-details-image-wrap">
           <div style={{ background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1rem', overflow: 'hidden' }}>
             <img 
               src={`/${product.cover_image}`} 
@@ -63,8 +63,8 @@ export default function ProductDetails() {
           </div>
         </div>
 
-        {/* Right Side: Details */}
-        <div style={{ flex: '2 1 400px' }}>
+        {/* Bottom Side: Details */}
+        <div className="product-details-info">
           <span style={{ background: '#f1f5f9', color: '#475569', padding: '4px 12px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 500, display: 'inline-block', marginBottom: '1rem' }}>
             {product.category || 'Uncategorized'}
           </span>
@@ -75,7 +75,7 @@ export default function ProductDetails() {
             ₹{product.price}
           </div>
 
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             <button 
               onClick={() => navigate(`/checkout/${product.id}`)} 
               className="btn btn-primary" 
@@ -97,7 +97,7 @@ export default function ProductDetails() {
             )}
           </div>
 
-          <div>
+          <div style={{ textAlign: 'left' }}>
             <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: 'var(--text-primary)', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>
               About this Ebook
             </h3>

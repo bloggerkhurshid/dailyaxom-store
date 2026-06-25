@@ -391,6 +391,28 @@ a {
   font-weight: 600;
 }
 
+/* Product Details Layout */
+.product-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+.product-details-image-wrap {
+  width: 100%;
+  max-width: 400px;
+}
+.product-details-info {
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .product-details-image-wrap {
+    max-width: 100%;
+  }
+}
+
 /* Auth Split Layout */
 .auth-split-layout {
   display: flex;
