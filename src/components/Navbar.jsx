@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-content" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <Link to="/" className="navbar-brand" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <img src="https://lh3.googleusercontent.com/StPwRy2zA-7h655s7Ugj4e1RhfmTQcp-RW7qvp6Q14H72Ps_0f7Dko6j0oWL5l3yLlpvxx4JtBK7XQ5F1pdy" alt="Logo" style={{ height: '32px', borderRadius: '0px' }} />
+          <img src="https://lh3.googleusercontent.com/StPwRy2zA-7h655s7Ugj4e1RhfmTQcp-RW7qvp6Q14H72Ps_0f7Dko6j0oWL5l3yLlpvxx4JtBK7XQ5F1pdy" alt="Logo" style={{ height: '32px', borderRadius: '10px' }} />
           <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <span><span style={{ fontWeight: 300 }}>Daily</span><span style={{ fontWeight: 700 }}>Axom</span></span>
             <span style={{ background: '#000', color: '#fff', fontSize: '0.4em', padding: '0.2em 0.4em', borderRadius: '0px', letterSpacing: '0.05em', fontWeight: 600 }}>STORE</span>

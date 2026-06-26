@@ -76,7 +76,6 @@ export default function Profile() {
             <thead>
               <tr style={{ background: 'rgba(255,255,255,0.4)' }}>
                 <th style={{ padding: '1.25rem 1.5rem', fontWeight: 600, color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Ebook Title</th>
-                <th style={{ padding: '1.25rem 1.5rem', fontWeight: 600, color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Purchased On</th>
                 <th style={{ padding: '1.25rem 1.5rem', fontWeight: 600, color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Expires In</th>
                 <th style={{ padding: '1.25rem 1.5rem', fontWeight: 600, textAlign: 'right', color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Action</th>
               </tr>
@@ -89,7 +88,6 @@ export default function Profile() {
                 return (
                   <tr key={item.order_id}>
                     <td style={{ padding: '1.25rem 1.5rem', fontWeight: 500, border: '1px solid var(--glass-border)' }}>{item.title}</td>
-                    <td style={{ padding: '1.25rem 1.5rem', color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>{new Date(item.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
                     <td style={{ padding: '1.25rem 1.5rem', color: isExpired ? '#b91c1c' : 'var(--text-secondary)', fontWeight: isExpired ? 600 : 400, border: '1px solid var(--glass-border)' }}>
                       {expiryStatus}
                     </td>
