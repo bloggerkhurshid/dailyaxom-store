@@ -64,7 +64,7 @@ export default function Storefront() {
                       </div>
                       <div className="card-content" style={{ padding: '1rem', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
                         <h3 className="card-title" title={product.title} style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>{product.title}</h3>
-                        <div style={{ background: '#f1f5f9', color: '#0f172a', padding: '0.35rem 0.8rem', borderRadius: '100px', fontWeight: 700, fontSize: '0.85rem', flexShrink: 0 }}>
+                        <div style={{ background: '#f1f5f9', color: '#0f172a', padding: '0.35rem 0.8rem', borderRadius: '0px', fontWeight: 700, fontSize: '0.85rem', flexShrink: 0 }}>
                           ₹{product.price}
                         </div>
                       </div>

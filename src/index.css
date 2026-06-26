@@ -12,7 +12,7 @@
   --accent-hover: #333333;
   --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
-  --radius: 12px;
+  --radius: 0px;
   --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -105,7 +105,7 @@ a {
   align-items: center;
   justify-content: center;
   padding: 0.75rem 1.5rem;
-  border-radius: var(--radius);
+  border-radius: 0px;
   font-weight: 500;
   font-size: 0.95rem;
   cursor: pointer;
@@ -248,12 +248,12 @@ a {
 
 .product-row::-webkit-scrollbar-track {
   background: var(--bg-secondary);
-  border-radius: 10px;
+  border-radius: 0px;
 }
 
 .product-row::-webkit-scrollbar-thumb {
   background: var(--border-color);
-  border-radius: 10px;
+  border-radius: 0px;
 }
 
 .product-row .card {
@@ -281,7 +281,7 @@ a {
   width: 100%;
   padding: 0.85rem 1rem;
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
+  border-radius: 0px;
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: var(--glass-blur);
   font-family: 'Inter', sans-serif;
@@ -303,7 +303,7 @@ a {
   margin: 0 auto;
   background: var(--bg-primary);
   padding: 2.5rem;
-  border-radius: 12px;
+  border-radius: 0px;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-color);
 }
@@ -448,7 +448,7 @@ a {
   max-width: 80%;
   background: #fff;
   padding: 3rem;
-  border-radius: 12px;
+  border-radius: 0px;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-color);
   margin: auto 0;
@@ -523,7 +523,7 @@ a {
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--glass-border);
-  border-radius: 20px;
+  border-radius: 0px;
   width: 100%;
   max-width: 450px;
   max-height: 90vh;
@@ -562,7 +562,7 @@ a {
   width: 80px;
   height: 45px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 0px;
 }
 
 .modal-product-summary h3 {

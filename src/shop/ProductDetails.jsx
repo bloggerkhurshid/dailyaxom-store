@@ -54,18 +54,18 @@ export default function ProductDetails() {
       <div className="product-details-container">
         {/* Top Side: Image */}
         <div className="product-details-image-wrap">
-          <div style={{ background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '1rem', overflow: 'hidden' }}>
+          <div style={{ background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '0px', padding: '1rem', overflow: 'hidden' }}>
             <img 
               src={`/${product.cover_image}`} 
               alt={product.title} 
-              style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '8px' }}
+              style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '0px' }}
             />
           </div>
         </div>
 
         {/* Bottom Side: Details */}
         <div className="product-details-info">
-          <span style={{ background: '#f1f5f9', color: '#475569', padding: '4px 12px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 500, display: 'inline-block', marginBottom: '1rem' }}>
+          <span style={{ background: '#f1f5f9', color: '#475569', padding: '4px 12px', borderRadius: '0px', fontSize: '0.85rem', fontWeight: 500, display: 'inline-block', marginBottom: '1rem' }}>
             {product.category || 'Uncategorized'}
           </span>
           <h1 style={{ fontSize: '2.5rem', fontWeight: 700, margin: '0 0 1rem 0', fontFamily: 'Outfit, sans-serif', color: 'var(--text-primary)', lineHeight: 1.2 }}>

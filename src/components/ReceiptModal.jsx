@@ -67,11 +67,11 @@ export default function ReceiptModal({ token, onClose }) {
         ) : error ? (
           <div style={{ textAlign: 'center', padding: '3rem', color: '#ef4444' }}>{error}</div>
         ) : order ? (
-          <div ref={receiptRef} style={{ background: 'white', padding: '3rem', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', color: '#18181b', fontFamily: 'Outfit, sans-serif' }}>
+          <div ref={receiptRef} style={{ background: 'white', padding: '3rem', borderRadius: '0px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', color: '#18181b', fontFamily: 'Outfit, sans-serif' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '2px solid #f4f4f5', paddingBottom: '2rem', marginBottom: '2rem' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <img src="https://lh3.googleusercontent.com/StPwRy2zA-7h655s7Ugj4e1RhfmTQcp-RW7qvp6Q14H72Ps_0f7Dko6j0oWL5l3yLlpvxx4JtBK7XQ5F1pdy" alt="DailyAxom Logo" style={{ width: '38px', height: '38px', borderRadius: '10px' }} />
+                  <img src="https://lh3.googleusercontent.com/StPwRy2zA-7h655s7Ugj4e1RhfmTQcp-RW7qvp6Q14H72Ps_0f7Dko6j0oWL5l3yLlpvxx4JtBK7XQ5F1pdy" alt="DailyAxom Logo" style={{ width: '38px', height: '38px', borderRadius: '0px' }} />
                   <div style={{ fontSize: '2rem', fontWeight: 700, lineHeight: 1 }}>Daily<span style={{ fontWeight: 300 }}>Axom</span></div>
                 </div>
                 <div style={{ fontSize: '0.9rem', color: '#71717a', marginTop: '0.75rem' }}>
