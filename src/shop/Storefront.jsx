@@ -21,9 +21,29 @@ export default function Storefront() {
 
   return (
     <div className="storefront">
-      <header className="page-header" style={{ textAlign: 'center', margin: '4rem 0 5rem', animation: 'modalFadeIn 0.8s ease' }}>
-        <h1 style={{ fontSize: '3.5rem', marginBottom: '1rem', letterSpacing: '-0.04em' }}>The Ultimate Exam Resource</h1>
-        <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', maxWidth: '650px', margin: '0 auto' }}>Get exclusive access to high-quality ebooks, notes, and preparation guides tailored specifically for students in Assam.</p>
+      <header className="page-header" style={{ textAlign: 'center', margin: '5rem 0 6rem', animation: 'modalFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1)' }}>
+        <h1 style={{ 
+          fontSize: 'clamp(3rem, 8vw, 4.5rem)', 
+          marginBottom: '1.5rem', 
+          letterSpacing: '-0.05em',
+          lineHeight: '1.1',
+          background: 'linear-gradient(135deg, #000000 0%, #434343 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          padding: '0 1rem'
+        }}>
+          The Ultimate Exam Resource
+        </h1>
+        <p style={{ 
+          fontSize: '1.25rem', 
+          color: 'var(--text-secondary)', 
+          maxWidth: '700px', 
+          margin: '0 auto',
+          lineHeight: '1.6',
+          padding: '0 1.5rem'
+        }}>
+          Get exclusive access to high-quality ebooks, notes, and preparation guides tailored specifically for students in Assam.
+        </p>
       </header>
 
       {loading ? (
