@@ -53,8 +53,8 @@ a {
 
 .main-content {
   flex: 1;
-  padding: 4rem 2rem;
-  max-width: 1200px;
+  padding: 2.5rem 1.5rem;
+  max-width: 1000px;
   width: 100%;
   margin: 0 auto;
 }
@@ -75,8 +75,8 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 2rem;
-  max-width: 1200px;
+  padding: 1rem 1.5rem;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -457,10 +457,10 @@ a {
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .navbar-content {
-    padding: 1rem;
+    padding: 0.75rem 1rem;
   }
   .main-content {
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
   }
   .product-row {
     flex-direction: column;
