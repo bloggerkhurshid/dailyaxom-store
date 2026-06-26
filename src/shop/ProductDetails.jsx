@@ -43,7 +43,7 @@ export default function ProductDetails() {
   }
 
   return (
-    <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
+    <div style={{ width: '100%' }}>
       <button 
         onClick={() => navigate('/')} 
         style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', marginBottom: '2rem', padding: 0 }}
