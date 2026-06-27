@@ -189,7 +189,7 @@ export default function Checkout() {
             <h2 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>Order Summary</h2>
             
             <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '2rem' }}>
-              <img src={`https://digital.devkayy.in/${product.cover_image}`} alt={product.title} style={{ width: '100px', height: '140px', objectFit: 'cover', borderRadius: '0px', border: '1px solid var(--border-color)' }} />
+              <img src={product.cover_image?.startsWith('http') ? product.cover_image.replace('http://localhost:7071', 'https://digital.devkayy.in') : `https://digital.devkayy.in/${product.cover_image}`} alt={product.title} style={{ width: '100px', height: '140px', objectFit: 'cover', borderRadius: '0px', border: '1px solid var(--border-color)' }} />
               <div>
                 <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>{product.title}</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1rem' }}>{product.category || 'Ebook'}</p>

@@ -60,7 +60,7 @@ export default function Storefront() {
                   {catProducts.map(product => (
                     <Link key={product.id} to={`/product/${product.id}`} className="card" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
                       <div className="card-img-wrapper">
-                        <img src={`https://digital.devkayy.in/${product.cover_image}`} alt={product.title} className="card-img" />
+                        <img src={product.cover_image?.startsWith('http') ? product.cover_image.replace('http://localhost:7071', 'https://digital.devkayy.in') : `https://digital.devkayy.in/${product.cover_image}`} alt={product.title} className="card-img" />
                       </div>
                       <div className="card-content" style={{ padding: '1rem', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
                         <h3 className="card-title" title={product.title} style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>{product.title}</h3>

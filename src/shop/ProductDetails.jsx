@@ -55,7 +55,7 @@ export default function ProductDetails() {
         {/* Top Side: Image */}
         <div className="product-details-image-wrap">
           <img
-            src={`https://digital.devkayy.in/${product.cover_image}`}
+            src={product.cover_image?.startsWith('http') ? product.cover_image.replace('http://localhost:7071', 'https://digital.devkayy.in') : `https://digital.devkayy.in/${product.cover_image}`}
             alt={product.title}
             style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '0px', border: '1px solid var(--border-color)' }}
           />
@@ -105,7 +105,7 @@ export default function ProductDetails() {
         <div
           className="rich-text"
           style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '1.1rem', whiteSpace: 'pre-wrap' }}
-          dangerouslySetInnerHTML={{ __html: product.description }}
+          dangerouslySetInnerHTML={{ __html: product.description ? product.description.replace(/http:\/\/localhost:7071/g, 'https://digital.devkayy.in') : '' }}
         />
       </div>
     </div>
