@@ -11,7 +11,7 @@ export default function ProductDetails() {
   useEffect(() => {
     // Scroll to top when page loads
     window.scrollTo(0, 0);
-    
+
     // We fetch all products and find the specific one. 
     // Ideally, we'd have a specific /api/public/products.php?id=... endpoint.
     fetch('/api/products.php')
@@ -24,6 +24,20 @@ export default function ProductDetails() {
       })
       .finally(() => setLoading(false));
   }, [productId]);
+
+  // Meta Pixel ViewContent tracking
+  useEffect(() => {
+    if (product && window.fbq) {
+      window.fbq('track', 'ViewContent', {
+        content_name: product.title,
+        content_category: product.category,
+        content_ids: [product.id],
+        content_type: 'product',
+        value: parseFloat(product.price),
+        currency: 'INR'
+      });
+    }
+  }, [product]);
 
   if (loading) {
     return (
@@ -44,8 +58,8 @@ export default function ProductDetails() {
 
   return (
     <div style={{ width: '100%' }}>
-      <button 
-        onClick={() => navigate('/')} 
+      <button
+        onClick={() => navigate('/')}
         style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', marginBottom: '2rem', padding: 0 }}
       >
         <ArrowLeft size={18} /> Back to Store
@@ -54,13 +68,11 @@ export default function ProductDetails() {
       <div className="product-details-container">
         {/* Top Side: Image */}
         <div className="product-details-image-wrap">
-          <div style={{ background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '0px', padding: '1rem', overflow: 'hidden' }}>
-            <img 
-              src={`/${product.cover_image}`} 
-              alt={product.title} 
-              style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '0px' }}
-            />
-          </div>
+          <img
+            src={`/${product.cover_image}`}
+            alt={product.title}
+            style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '0px', border: '1px solid var(--border-color)' }}
+          />
         </div>
 
         {/* Bottom Side: Details */}
@@ -75,21 +87,21 @@ export default function ProductDetails() {
             ₹{product.price}
           </div>
 
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <button 
-              onClick={() => navigate(`/checkout/${product.id}`)} 
-              className="btn btn-primary" 
+          <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap', justifyContent: 'flex-start' }}>
+            <button
+              onClick={() => navigate(`/checkout/${product.id}`)}
+              className="btn btn-primary"
               style={{ flex: 1, minWidth: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '1rem' }}
             >
               <ShoppingCart size={20} /> Buy Now
             </button>
-            
+
             {product.sample_pdf_path && (
-              <a 
-                href={`/${product.sample_pdf_path}`} 
-                target="_blank" 
-                rel="noreferrer" 
-                className="btn btn-secondary" 
+              <a
+                href={`/${product.sample_pdf_path}`}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-secondary"
                 style={{ flex: 1, minWidth: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '1rem', textDecoration: 'none', border: '1.5px solid var(--text-primary)' }}
               >
                 <Download size={20} /> Sample PDF
@@ -97,17 +109,18 @@ export default function ProductDetails() {
             )}
           </div>
 
-          <div style={{ textAlign: 'left' }}>
-            <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', color: 'var(--text-primary)', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>
-              About this Ebook
-            </h3>
-            <div 
-              className="rich-text"
-              style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '1.05rem', whiteSpace: 'pre-wrap' }}
-              dangerouslySetInnerHTML={{ __html: product.description }}
-            />
-          </div>
         </div>
+      </div>
+
+      <div>
+        <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+          About this Ebook
+        </h3>
+        <div
+          className="rich-text"
+          style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '1.1rem', whiteSpace: 'pre-wrap' }}
+          dangerouslySetInnerHTML={{ __html: product.description }}
+        />
       </div>
     </div>
   );

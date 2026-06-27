@@ -71,47 +71,37 @@ export default function Profile() {
       {loading ? (
         <div>Loading your purchases...</div>
       ) : purchases.length > 0 ? (
-        <div style={{ overflowX: 'auto', background: 'var(--glass-bg)', backdropFilter: 'var(--glass-blur)', borderRadius: '0px', border: '1px solid rgba(0, 0, 0, 0.15)' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-            <thead>
-              <tr style={{ background: 'rgba(255,255,255,0.4)' }}>
-                <th style={{ padding: '1.25rem 1.5rem', fontWeight: 600, color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Ebook Title</th>
-                <th style={{ padding: '1.25rem 1.5rem', fontWeight: 600, color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Expires In</th>
-                <th style={{ padding: '1.25rem 1.5rem', fontWeight: 600, textAlign: 'right', color: 'var(--text-secondary)', border: '1px solid var(--glass-border)' }}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {purchases.map(item => {
-                const expiryStatus = calculateExpiry(item.expires_at);
-                const isExpired = expiryStatus === 'Expired';
+        <div className="purchase-list-container">
+          {purchases.map(item => {
+            const expiryStatus = calculateExpiry(item.expires_at);
+            const isExpired = expiryStatus === 'Expired';
+            
+            return (
+              <div key={item.order_id} className="purchase-item">
+                <div className="purchase-item-details">
+                  <h3 style={{ fontSize: '1.1rem', margin: 0, color: 'var(--text-primary)', fontWeight: 600 }}>{item.title}</h3>
+                  <div style={{ fontSize: '0.9rem', color: isExpired ? '#b91c1c' : 'var(--text-secondary)', fontWeight: isExpired ? 600 : 400 }}>
+                    Expires: {expiryStatus}
+                  </div>
+                </div>
                 
-                return (
-                  <tr key={item.order_id}>
-                    <td style={{ padding: '1.25rem 1.5rem', fontWeight: 500, border: '1px solid var(--glass-border)' }}>{item.title}</td>
-                    <td style={{ padding: '1.25rem 1.5rem', color: isExpired ? '#b91c1c' : 'var(--text-secondary)', fontWeight: isExpired ? 600 : 400, border: '1px solid var(--glass-border)' }}>
-                      {expiryStatus}
-                    </td>
-                    <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right', border: '1px solid var(--glass-border)' }}>
-                      <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-                        <button onClick={() => setSelectedReceiptToken(item.token)} className="btn" style={{ padding: '0.6rem 1rem', fontSize: '0.85rem', borderRadius: '0px', background: '#f8fafc', color: '#0f172a', border: '1px solid #e2e8f0', cursor: 'pointer' }}>
-                          Receipt
-                        </button>
-                        {isExpired ? (
-                          <button disabled className="btn" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px', background: '#e5e7eb', color: '#9ca3af', cursor: 'not-allowed', border: 'none' }}>
-                            Expired
-                          </button>
-                        ) : (
-                          <a href={`/api/download.php?token=${item.token}`} download target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px', textDecoration: 'none' }}>
-                            Download
-                          </a>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                <div className="purchase-item-actions">
+                  <button onClick={() => setSelectedReceiptToken(item.token)} className="btn" style={{ padding: '0.6rem 1rem', fontSize: '0.85rem', borderRadius: '0px', background: '#f8fafc', color: '#0f172a', border: '1px solid #e2e8f0', cursor: 'pointer' }}>
+                    Receipt
+                  </button>
+                  {isExpired ? (
+                    <button disabled className="btn" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px', background: '#e5e7eb', color: '#9ca3af', cursor: 'not-allowed', border: 'none' }}>
+                      Expired
+                    </button>
+                  ) : (
+                    <a href={`/api/download.php?token=${item.token}`} download target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.85rem', borderRadius: '0px', textDecoration: 'none' }}>
+                      Download
+                    </a>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       ) : (
         <div style={{ padding: '3rem', textAlign: 'center', background: '#f9f9f9', borderRadius: '0px', border: '1px dashed #ccc' }}>

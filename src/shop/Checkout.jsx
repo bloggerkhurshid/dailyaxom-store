@@ -42,6 +42,20 @@ export default function Checkout() {
       .finally(() => setPageLoading(false));
   }, [productId, navigate]);
 
+  // Meta Pixel InitiateCheckout tracking
+  useEffect(() => {
+    if (product && window.fbq) {
+      window.fbq('track', 'InitiateCheckout', {
+        content_name: product.title,
+        content_category: product.category,
+        content_ids: [product.id],
+        num_items: 1,
+        value: parseFloat(product.price),
+        currency: 'INR'
+      });
+    }
+  }, [product]);
+
   useEffect(() => {
     if (user) {
       setAuthMode('checkout');
@@ -139,6 +153,16 @@ export default function Checkout() {
               });
               const verifyData = await verifyRes.json();
               if (verifyData.status === 'success') {
+                // Meta Pixel Purchase Tracking
+                if (window.fbq) {
+                  window.fbq('track', 'Purchase', {
+                    content_name: product.title,
+                    content_ids: [product.id],
+                    content_type: 'product',
+                    value: parseFloat(product.price),
+                    currency: 'INR'
+                  });
+                }
                 navigate('/success?order_id=' + data.razorpay_order_id);
               } else {
                 alert('Payment verification failed: ' + verifyData.message);
@@ -176,131 +200,143 @@ export default function Checkout() {
   if(!product) return null;
 
   return (
-      <div className="checkout-page-container" style={{ width: '100%', maxWidth: '800px', margin: '0 auto', paddingBottom: '4rem' }}>
+      <div className="checkout-page-container" style={{ width: '100%', maxWidth: '1000px', margin: '0 auto', paddingBottom: '4rem' }}>
         
-        {/* 1. Hero Section */}
-        <section style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <h1 style={{ fontSize: '2.5rem', fontFamily: 'Outfit, sans-serif', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>{product.title}</h1>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>Get instant access to this premium ebook.</p>
-        </section>
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <h1 style={{ fontSize: '2.5rem', fontFamily: 'Outfit, sans-serif', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Secure Checkout</h1>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>Complete your purchase to get instant access.</p>
+        </div>
 
-        {/* 2. Order Form Section */}
-        <section style={{ maxWidth: '500px', margin: '0 auto 3rem auto', background: 'var(--bg-primary)', border: '1px solid var(--border-color)', padding: '2rem' }}>
-            {authMode === 'checkout' ? (
-              <form onSubmit={handleCheckoutSubmit}>
-                <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Your Name</label>
-                  <input type="text" required className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Full name" value={checkoutData.customer_name} onChange={(e) => setCheckoutData({...checkoutData, customer_name: e.target.value})} />
-                </div>
-                <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Email</label>
-                  <input type="email" required className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Email address" value={checkoutData.customer_email} onChange={(e) => setCheckoutData({...checkoutData, customer_email: e.target.value})} />
-                </div>
-                <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>WhatsApp</label>
-                  <input type="tel" required pattern="[0-9]{10}" maxLength="10" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="10-digit number" value={checkoutData.customer_phone} onChange={(e) => setCheckoutData({...checkoutData, customer_phone: e.target.value.replace(/\D/g, '')})} />
-                </div>
-                <button type="submit" className="btn btn-primary w-full" disabled={loading} style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', fontWeight: 600, borderRadius: '0px', marginTop: '0.5rem' }}>
-                  {loading ? 'Processing...' : `Pay Now — ₹${product.price}`}
-                </button>
-              </form>
-            ) : (
+        <div className="checkout-split-layout">
+          {/* Left Side: Order Summary */}
+          <div className="checkout-summary" style={{ borderRadius: '0px' }}>
+            <h2 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>Order Summary</h2>
+            
+            <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '2rem' }}>
+              <img src={`/${product.cover_image}`} alt={product.title} style={{ width: '100px', height: '140px', objectFit: 'cover', borderRadius: '0px', border: '1px solid var(--border-color)' }} />
               <div>
-                {authError && <div style={{ background: authError.includes('created') ? '#dcfce7' : '#fee2e2', color: authError.includes('created') ? '#166534' : '#ef4444', padding: '1rem', marginBottom: '1.5rem', fontSize: '0.9rem', border: `1px solid ${authError.includes('created') ? '#bbf7d0' : '#fecaca'}`, textAlign: 'center' }}>{authError}</div>}
-                
-                <form onSubmit={handleAuthSubmit}>
-                  {authMode === 'register' && (
-                    <>
-                      <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Your Name</label>
-                        <input type="text" name="full_name" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Full name" value={authData.full_name} onChange={handleAuthChange} required />
-                      </div>
-                      <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>WhatsApp</label>
-                        <input type="tel" name="whatsapp_number" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="10-digit number" pattern="[0-9]{10}" maxLength="10" value={authData.whatsapp_number} onChange={(e) => setAuthData({...authData, whatsapp_number: e.target.value.replace(/\D/g, '')})} required />
-                      </div>
-                    </>
-                  )}
-                  <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Email</label>
-                    <input type="email" name="email" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Email address" value={authData.email} onChange={handleAuthChange} required />
-                  </div>
-                  <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Password</label>
-                    <input type="password" name="password" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Password" value={authData.password} onChange={handleAuthChange} required minLength="6" />
-                  </div>
-                  {authMode === 'register' && (
-                    <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                      <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Confirm Password</label>
-                      <input type="password" name="confirm_password" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Confirm Password" value={authData.confirm_password} onChange={handleAuthChange} required minLength="6" />
-                    </div>
-                  )}
-                  
-                  <button type="submit" className="btn btn-primary w-full" disabled={loading} style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', fontWeight: 600, borderRadius: '0px', marginTop: '0.5rem' }}>
-                    {loading ? 'Please wait...' : (authMode === 'login' ? 'Login to Continue' : 'Create Account')}
-                  </button>
-                </form>
-                
-                <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
-                  {authMode === 'login' ? (
-                    <>New here? <span style={{color: 'var(--text-primary)', cursor: 'pointer', fontWeight: '600', textDecoration: 'underline'}} onClick={() => {setAuthMode('register'); setAuthError('');}}>Sign up</span></>
-                  ) : (
-                    <>Already have an account? <span style={{color: 'var(--text-primary)', cursor: 'pointer', fontWeight: '600', textDecoration: 'underline'}} onClick={() => {setAuthMode('login'); setAuthError('');}}>Log in</span></>
-                  )}
-                </p>
+                <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>{product.title}</h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1rem' }}>{product.category || 'Ebook'}</p>
+                <div style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-primary)' }}>₹{product.price}</div>
               </div>
-            )}
-        </section>
+            </div>
 
-        {/* 3. Delivery Info (Trust Cards) */}
-        <section style={{ borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)', padding: '2.5rem 0', marginBottom: '3rem' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem' }}>
-                    <div style={{ color: 'var(--text-primary)', marginTop: '0.2rem' }}>
-                        <svg strokeWidth="1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="28" height="28" strokeLinecap="round" strokeLinejoin="round">
+            <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                    <div style={{ color: 'var(--text-primary)' }}>
+                        <svg strokeWidth="1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24" strokeLinecap="round" strokeLinejoin="round">
                             <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/>
                             <rect x="2" y="4" width="20" height="16" rx="2"/>
                         </svg>
                     </div>
                     <div>
-                        <h3 style={{ fontSize: '1.15rem', margin: '0 0 0.4rem 0', fontFamily: 'Outfit, sans-serif' }}>Instant Delivery</h3>
-                        <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>Download link sent to your email and WhatsApp right after payment.</p>
+                        <h4 style={{ fontSize: '1rem', margin: '0 0 0.2rem 0' }}>Instant Delivery</h4>
+                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Instantly download from your profile section.</p>
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem' }}>
-                    <div style={{ color: 'var(--text-primary)', marginTop: '0.2rem' }}>
-                        <svg strokeWidth="1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="28" height="28" strokeLinecap="round" strokeLinejoin="round">
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                    <div style={{ color: 'var(--text-primary)' }}>
+                        <svg strokeWidth="1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="12" cy="12" r="10"/>
                             <path d="M12 6v6l4 2"/>
                         </svg>
                     </div>
                     <div>
-                        <h3 style={{ fontSize: '1.15rem', margin: '0 0 0.4rem 0', fontFamily: 'Outfit, sans-serif' }}>30-Day Access</h3>
-                        <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>Download your ebook within 30 days of payment as the link expires after that.</p>
+                        <h4 style={{ fontSize: '1rem', margin: '0 0 0.2rem 0' }}>30-Day Access</h4>
+                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Download within 30 days before link expires.</p>
                     </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem' }}>
-                    <div style={{ color: 'var(--text-primary)', marginTop: '0.2rem' }}>
-                        <svg strokeWidth="1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="28" height="28" strokeLinecap="round" strokeLinejoin="round">
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                    <div style={{ color: 'var(--text-primary)' }}>
+                        <svg strokeWidth="1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M12 15V3"/>
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                             <path d="m7 10 5 5 5-5"/>
                         </svg>
                     </div>
                     <div>
-                        <h3 style={{ fontSize: '1.15rem', margin: '0 0 0.4rem 0', fontFamily: 'Outfit, sans-serif' }}>Offline Forever</h3>
-                        <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>Once downloaded, the PDF is yours to keep and study offline anytime.</p>
+                        <h4 style={{ fontSize: '1rem', margin: '0 0 0.2rem 0' }}>Offline Forever</h4>
+                        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Yours to keep and study offline anytime.</p>
                     </div>
                 </div>
-
             </div>
-        </section>
+          </div>
 
-
-
+          {/* Right Side: Form */}
+          <div className="checkout-form-container">
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>{authMode === 'checkout' ? 'Payment Details' : 'Account Details'}</h2>
+            
+            <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-color)', padding: '2.5rem', borderRadius: '0px' }}>
+              {authMode === 'checkout' ? (
+                <form onSubmit={handleCheckoutSubmit}>
+                  <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Your Name</label>
+                    <input type="text" required className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Full name" value={checkoutData.customer_name} onChange={(e) => setCheckoutData({...checkoutData, customer_name: e.target.value})} />
+                  </div>
+                  <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Email</label>
+                    <input type="email" required className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Email address" value={checkoutData.customer_email} onChange={(e) => setCheckoutData({...checkoutData, customer_email: e.target.value})} />
+                  </div>
+                  <div className="form-group" style={{ marginBottom: '2rem' }}>
+                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>WhatsApp Number</label>
+                    <input type="tel" required pattern="[0-9]{10}" maxLength="10" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="10-digit number" value={checkoutData.customer_phone} onChange={(e) => setCheckoutData({...checkoutData, customer_phone: e.target.value.replace(/\D/g, '')})} />
+                  </div>
+                  <button type="submit" className="btn btn-primary w-full" disabled={loading} style={{ width: '100%', padding: '1.25rem', fontSize: '1.1rem', fontWeight: 600, borderRadius: '0px' }}>
+                    {loading ? 'Processing...' : `Pay Securely — ₹${product.price}`}
+                  </button>
+                  <p style={{ textAlign: 'center', marginTop: '1rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Secured by Razorpay. 100% encrypted.</p>
+                </form>
+              ) : (
+                <div>
+                  {authError && <div style={{ background: authError.includes('created') ? '#dcfce7' : '#fee2e2', color: authError.includes('created') ? '#166534' : '#ef4444', padding: '1rem', marginBottom: '1.5rem', fontSize: '0.9rem', border: `1px solid ${authError.includes('created') ? '#bbf7d0' : '#fecaca'}`, textAlign: 'center', borderRadius: '0px' }}>{authError}</div>}
+                  
+                  <form onSubmit={handleAuthSubmit}>
+                    {authMode === 'register' && (
+                      <>
+                        <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Your Name</label>
+                          <input type="text" name="full_name" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Full name" value={authData.full_name} onChange={handleAuthChange} required />
+                        </div>
+                        <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>WhatsApp</label>
+                          <input type="tel" name="whatsapp_number" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="10-digit number" pattern="[0-9]{10}" maxLength="10" value={authData.whatsapp_number} onChange={(e) => setAuthData({...authData, whatsapp_number: e.target.value.replace(/\D/g, '')})} required />
+                        </div>
+                      </>
+                    )}
+                    <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                      <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Email</label>
+                      <input type="email" name="email" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Email address" value={authData.email} onChange={handleAuthChange} required />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                      <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Password</label>
+                      <input type="password" name="password" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Password" value={authData.password} onChange={handleAuthChange} required minLength="6" />
+                    </div>
+                    {authMode === 'register' && (
+                      <div className="form-group" style={{ marginBottom: '2rem' }}>
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.95rem' }}>Confirm Password</label>
+                        <input type="password" name="confirm_password" className="form-input" style={{ width: '100%', borderRadius: '0px' }} placeholder="Confirm Password" value={authData.confirm_password} onChange={handleAuthChange} required minLength="6" />
+                      </div>
+                    )}
+                    
+                    <button type="submit" className="btn btn-primary w-full" disabled={loading} style={{ width: '100%', padding: '1.25rem', fontSize: '1.1rem', fontWeight: 600, borderRadius: '0px' }}>
+                      {loading ? 'Please wait...' : (authMode === 'login' ? 'Login to Continue' : 'Create Account')}
+                    </button>
+                  </form>
+                  
+                  <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.95rem', color: 'var(--text-secondary)' }}>
+                    {authMode === 'login' ? (
+                      <>New here? <span style={{color: 'var(--text-primary)', cursor: 'pointer', fontWeight: '600', textDecoration: 'underline'}} onClick={() => {setAuthMode('register'); setAuthError('');}}>Sign up securely</span></>
+                    ) : (
+                      <>Already have an account? <span style={{color: 'var(--text-primary)', cursor: 'pointer', fontWeight: '600', textDecoration: 'underline'}} onClick={() => {setAuthMode('login'); setAuthError('');}}>Log in</span></>
+                    )}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
   );
 }

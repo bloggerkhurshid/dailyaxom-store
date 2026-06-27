@@ -393,23 +393,23 @@ a {
 
 /* Product Details Layout */
 .product-details-container {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+  align-items: start;
 }
 .product-details-image-wrap {
   width: 100%;
-  max-width: 400px;
 }
 .product-details-info {
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
 
 @media (max-width: 768px) {
-  .product-details-image-wrap {
-    max-width: 100%;
+  .product-details-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 
@@ -452,6 +452,22 @@ a {
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-color);
   margin: auto 0;
+}
+
+/* Checkout Split Layout */
+.checkout-split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.checkout-summary {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 2.5rem;
+}
+.checkout-form-container {
+  padding: 1rem 0;
 }
 
 /* Responsive Adjustments */
@@ -499,6 +515,53 @@ a {
     width: 100%;
     max-width: 100%;
     padding: 2rem 1.5rem;
+  }
+
+  .checkout-split-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .checkout-summary {
+    padding: 1.5rem;
+  }
+}
+
+/* Profile Purchase List */
+.purchase-list-container {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 0px;
+}
+.purchase-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+.purchase-item:last-child {
+  border-bottom: none;
+}
+.purchase-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.purchase-item-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .purchase-item {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .purchase-item-actions {
+    justify-content: flex-end;
   }
 }
 
