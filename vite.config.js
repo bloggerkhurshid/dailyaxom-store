@@ -7,11 +7,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://digital.devkayy.in',
+        target: 'https://digital.devkayy.in',
         changeOrigin: true
       },
       '/uploads': {
-        target: 'http://digital.devkayy.in',
+        target: 'https://digital.devkayy.in',
         changeOrigin: true
       }
     }

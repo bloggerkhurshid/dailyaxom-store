@@ -1,12 +1,12 @@
 [[redirects]]
   from = "/api/*"
-  to = "http://digital.devkayy.in/api/:splat"
+  to = "https://digital.devkayy.in/api/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/uploads/*"
-  to = "http://digital.devkayy.in/uploads/:splat"
+  to = "https://digital.devkayy.in/uploads/:splat"
   status = 200
   force = true
 

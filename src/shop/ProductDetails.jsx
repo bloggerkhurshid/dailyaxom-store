@@ -14,7 +14,7 @@ export default function ProductDetails() {
 
     // We fetch all products and find the specific one. 
     // Ideally, we'd have a specific /api/public/products.php?id=... endpoint.
-    fetch('/api/products.php')
+    fetch('https://digital.devkayy.in/api/products.php')
       .then(res => res.json())
       .then(data => {
         if (data.status === 'success') {
@@ -55,7 +55,7 @@ export default function ProductDetails() {
         {/* Top Side: Image */}
         <div className="product-details-image-wrap">
           <img
-            src={`/${product.cover_image}`}
+            src={`https://digital.devkayy.in/${product.cover_image}`}
             alt={product.title}
             style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '0px', border: '1px solid var(--border-color)' }}
           />
@@ -84,7 +84,7 @@ export default function ProductDetails() {
 
             {product.sample_pdf_path && (
               <a
-                href={`/${product.sample_pdf_path}`}
+                href={`https://digital.devkayy.in/${product.sample_pdf_path}`}
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-secondary"
