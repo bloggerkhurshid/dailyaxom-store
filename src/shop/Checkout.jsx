@@ -64,7 +64,7 @@ export default function Checkout() {
     setAuthError('');
     setLoading(true);
     const isLogin = authMode === 'login';
-    const endpoint = isLogin ? '/api/auth/login.php' : '/api/auth/register.php';
+    const endpoint = isLogin ? 'https://digital.devkayy.in/api/auth/login.php' : 'https://digital.devkayy.in/api/auth/register.php';
 
     if (!isLogin && authData.password !== authData.confirm_password) {
       setAuthError('Passwords do not match');
@@ -81,12 +81,7 @@ export default function Checkout() {
       const data = await res.json();
       
       if (data.status === 'success') {
-        if (isLogin) {
-          login(data.user, data.token); 
-        } else {
-          setAuthMode('login');
-          setAuthError('Account created! Please log in.');
-        }
+        login(data.user, data.token); 
       } else {
         setAuthError(data.message);
       }

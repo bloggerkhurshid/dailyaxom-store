@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ export default function Register() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { login } = React.useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -36,8 +38,9 @@ export default function Register() {
       const data = await res.json();
       
       if (data.status === 'success') {
-        const returnUrl = location.state?.returnUrl;
-        navigate('/login', { state: { message: 'Registration successful! Please login.', returnUrl } });
+        login(data.user, data.token);
+        const returnUrl = location.state?.returnUrl || '/profile';
+        navigate(returnUrl);
       } else {
         setError(data.message);
       }
