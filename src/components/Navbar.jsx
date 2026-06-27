@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { ShoppingCart } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -16,7 +17,9 @@ const Navbar = () => {
         </Link>
         <div className="navbar-links" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           {user ? (
-            <Link to="/profile" className="nav-link" style={{ marginLeft: 0 }}>My Profile</Link>
+            <Link to="/profile" className="nav-link" style={{ marginLeft: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
+              <ShoppingCart size={18} /> My Orders
+            </Link>
           ) : (
             <Link to="/login" className="btn btn-primary" style={{ padding: '0.4rem 1.25rem', fontSize: '0.85rem' }}>Login</Link>
           )}
