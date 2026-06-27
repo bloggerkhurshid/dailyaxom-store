@@ -25,20 +25,6 @@ export default function ProductDetails() {
       .finally(() => setLoading(false));
   }, [productId]);
 
-  // Meta Pixel ViewContent tracking
-  useEffect(() => {
-    if (product && window.fbq) {
-      window.fbq('track', 'ViewContent', {
-        content_name: product.title,
-        content_category: product.category,
-        content_ids: [product.id],
-        content_type: 'product',
-        value: parseFloat(product.price),
-        currency: 'INR'
-      });
-    }
-  }, [product]);
-
   if (loading) {
     return (
       <div style={{ textAlign: 'center', padding: '6rem 2rem', color: 'var(--text-secondary)' }}>

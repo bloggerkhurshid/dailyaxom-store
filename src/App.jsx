@@ -12,7 +12,6 @@ import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import Success from './pages/Success';
 import { AuthProvider } from './context/AuthContext';
-import PixelTracker from './components/PixelTracker';
 
 // Policy Pages
 import Terms from './pages/Terms';
@@ -23,7 +22,6 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <PixelTracker />
         <div className="app-container">
           <Routes>
             {/* Main Application Routes */}

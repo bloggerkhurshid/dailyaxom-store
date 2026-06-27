@@ -42,20 +42,6 @@ export default function Checkout() {
       .finally(() => setPageLoading(false));
   }, [productId, navigate]);
 
-  // Meta Pixel InitiateCheckout tracking
-  useEffect(() => {
-    if (product && window.fbq) {
-      window.fbq('track', 'InitiateCheckout', {
-        content_name: product.title,
-        content_category: product.category,
-        content_ids: [product.id],
-        num_items: 1,
-        value: parseFloat(product.price),
-        currency: 'INR'
-      });
-    }
-  }, [product]);
-
   useEffect(() => {
     if (user) {
       setAuthMode('checkout');
@@ -153,16 +139,6 @@ export default function Checkout() {
               });
               const verifyData = await verifyRes.json();
               if (verifyData.status === 'success') {
-                // Meta Pixel Purchase Tracking
-                if (window.fbq) {
-                  window.fbq('track', 'Purchase', {
-                    content_name: product.title,
-                    content_ids: [product.id],
-                    content_type: 'product',
-                    value: parseFloat(product.price),
-                    currency: 'INR'
-                  });
-                }
                 navigate('/success?order_id=' + data.razorpay_order_id);
               } else {
                 alert('Payment verification failed: ' + verifyData.message);
