@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Download, ShoppingCart, ArrowLeft } from 'lucide-react';
 
 export default function ProductDetails() {
   const { productId } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
+  const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function ProductDetails() {
       .then(res => res.json())
       .then(data => {
         if (data.status === 'success') {
+          setAllProducts(data.data);
           const found = data.data.find(p => parseInt(p.id) === parseInt(productId));
           setProduct(found);
         }
@@ -107,6 +109,26 @@ export default function ProductDetails() {
           style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '1.1rem', whiteSpace: 'pre-wrap' }}
           dangerouslySetInnerHTML={{ __html: product.description ? product.description.replace(/http:\/\/localhost:7071/g, 'https://digital.devkayy.in') : '' }}
         />
+      </div>
+      <div style={{ marginTop: '5rem', borderTop: '1px solid var(--border-color)', paddingTop: '3rem' }}>
+        <h3 style={{ fontSize: '1.5rem', marginBottom: '2rem', color: 'var(--text-primary)' }}>
+          Recommended Ebooks
+        </h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '2rem' }}>
+          {allProducts.filter(p => parseInt(p.id) !== parseInt(product.id)).slice(0, 4).map(recProduct => (
+            <Link key={recProduct.id} to={`/product/${recProduct.id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <img 
+                src={recProduct.cover_image?.startsWith('http') ? recProduct.cover_image.replace('http://localhost:7071', 'https://digital.devkayy.in') : `https://digital.devkayy.in/${recProduct.cover_image}`} 
+                alt={recProduct.title} 
+                style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '0px', border: '1px solid var(--border-color)' }} 
+              />
+              <div>
+                <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.4 }}>{recProduct.title}</h4>
+                <div style={{ fontWeight: 700, color: 'var(--accent-color)' }}>₹{recProduct.price}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
