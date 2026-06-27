@@ -59,19 +59,19 @@ export default function ProductDetails() {
           <img
             src={product.cover_image?.startsWith('http') ? product.cover_image.replace('http://localhost:7071', 'https://digital.devkayy.in') : `https://digital.devkayy.in/${product.cover_image}`}
             alt={product.title}
-            style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '0px', border: '1px solid var(--border-color)' }}
+            style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '0px', border: '2px solid #000000', boxShadow: '8px 8px 0px rgba(0,0,0,1)' }}
           />
         </div>
 
         {/* Bottom Side: Details */}
         <div className="product-details-info">
-          <span style={{ background: '#f1f5f9', color: '#475569', padding: '4px 12px', borderRadius: '0px', fontSize: '0.85rem', fontWeight: 500, display: 'inline-block', marginBottom: '1rem' }}>
+          <span style={{ background: '#000000', color: '#ffffff', padding: '4px 12px', borderRadius: '0px', fontSize: '0.85rem', fontWeight: 600, display: 'inline-block', marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             {product.category || 'Uncategorized'}
           </span>
           <h1 style={{ fontSize: '2.5rem', fontWeight: 700, margin: '0 0 1rem 0', fontFamily: 'Outfit, sans-serif', color: 'var(--text-primary)', lineHeight: 1.2 }}>
             {product.title}
           </h1>
-          <div style={{ fontSize: '2rem', fontWeight: 600, color: 'var(--accent-color)', marginBottom: '2rem' }}>
+          <div style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '2.5rem', fontFamily: 'Outfit' }}>
             ₹{product.price}
           </div>
 
@@ -90,7 +90,7 @@ export default function ProductDetails() {
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn-secondary"
-                style={{ flex: 1, minWidth: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '1rem', textDecoration: 'none', border: '1.5px solid var(--text-primary)' }}
+                style={{ flex: 1, minWidth: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', padding: '1rem', textDecoration: 'none', border: '2px solid #000000', color: '#000000', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}
               >
                 <Download size={20} /> Sample PDF
               </a>
@@ -120,7 +120,7 @@ export default function ProductDetails() {
               <img 
                 src={recProduct.cover_image?.startsWith('http') ? recProduct.cover_image.replace('http://localhost:7071', 'https://digital.devkayy.in') : `https://digital.devkayy.in/${recProduct.cover_image}`} 
                 alt={recProduct.title} 
-                style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '0px', border: '1px solid var(--border-color)' }} 
+                style={{ width: '100%', aspectRatio: '16/9', objectFit: 'cover', borderRadius: '0px', border: '2px solid #000000', boxShadow: '4px 4px 0px rgba(0,0,0,1)' }}  
               />
               <div>
                 <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.4 }}>{recProduct.title}</h4>

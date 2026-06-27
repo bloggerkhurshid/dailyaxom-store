@@ -181,10 +181,10 @@ export default function Checkout() {
         <div className="checkout-split-layout">
           {/* Left Side: Order Summary */}
           <div className="checkout-summary" style={{ borderRadius: '0px' }}>
-            <h2 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>Order Summary</h2>
+            <h2 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', borderBottom: '2px solid #000000', paddingBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Order Summary</h2>
             
             <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '2rem' }}>
-              <img src={product.cover_image?.startsWith('http') ? product.cover_image.replace('http://localhost:7071', 'https://digital.devkayy.in') : `https://digital.devkayy.in/${product.cover_image}`} alt={product.title} style={{ width: '100px', height: '140px', objectFit: 'cover', borderRadius: '0px', border: '1px solid var(--border-color)' }} />
+              <img src={product.cover_image?.startsWith('http') ? product.cover_image.replace('http://localhost:7071', 'https://digital.devkayy.in') : `https://digital.devkayy.in/${product.cover_image}`} alt={product.title} style={{ width: '100px', height: '140px', objectFit: 'cover', borderRadius: '0px', border: '2px solid #000000', boxShadow: '4px 4px 0px rgba(0,0,0,1)' }} />
               <div>
                 <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>{product.title}</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1rem' }}>{product.category || 'Ebook'}</p>
@@ -192,7 +192,7 @@ export default function Checkout() {
               </div>
             </div>
 
-            <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div style={{ borderTop: '2px solid #000000', paddingTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
                     <div style={{ color: 'var(--text-primary)' }}>
                         <svg strokeWidth="1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24" strokeLinecap="round" strokeLinejoin="round">
@@ -239,7 +239,7 @@ export default function Checkout() {
           <div className="checkout-form-container">
             <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>{authMode === 'checkout' ? 'Payment Details' : 'Account Details'}</h2>
             
-            <div style={{ background: 'var(--bg-primary)', border: '1px solid var(--border-color)', padding: '2.5rem', borderRadius: '0px' }}>
+            <div style={{ background: 'var(--bg-primary)', border: '2px solid #000000', padding: '2.5rem', borderRadius: '0px', boxShadow: '8px 8px 0px rgba(0,0,0,1)' }}>
               {authMode === 'checkout' ? (
                 <form onSubmit={handleCheckoutSubmit}>
                   <div className="form-group" style={{ marginBottom: '1.5rem' }}>

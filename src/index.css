@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg-primary: #f8fafc;
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  --glass-blur: blur(20px);
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --border-color: rgba(255, 255, 255, 0.5);
+  --bg-primary: #ffffff;
+  --glass-bg: #ffffff;
+  --glass-border: #e2e8f0;
+  --glass-blur: blur(0px);
+  --text-primary: #000000;
+  --text-secondary: #555555;
+  --border-color: #e5e5e5;
   --accent-color: #000000;
-  --accent-hover: #333333;
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --accent-hover: #222222;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --radius: 0px;
-  --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition: all 0.3s ease;
 }
 
 * {
@@ -33,9 +33,10 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Outfit', sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
 }
 
 a {
@@ -117,12 +118,15 @@ a {
 .btn-primary {
   background-color: var(--accent-color);
   color: #ffffff;
+  border: 1px solid var(--accent-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
 }
 
 .btn-primary:hover {
-  background-color: var(--accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  color: var(--accent-color);
 }
 
 .btn-secondary {
@@ -144,22 +148,19 @@ a {
 }
 
 .card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: var(--bg-primary);
+  border: 1px solid #000000;
   border-radius: 0px;
   overflow: hidden;
   transition: var(--transition);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-  padding: 0.5rem;
+  padding: 0;
 }
 
 .card:hover {
-  box-shadow: none;
-  transform: translateY(-5px);
+  box-shadow: 8px 8px 0px rgba(0,0,0,1);
+  transform: translate(-2px, -2px);
 }
 
 .card-img-wrapper {
@@ -185,10 +186,11 @@ a {
 }
 
 .card-content {
-  padding: 1rem 0.5rem 0.5rem 0.5rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   flex: 1;
+  border-top: 1px solid #000000;
 }
 
 .card-title {
@@ -225,12 +227,13 @@ a {
 }
 
 .category-title {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #000000;
   font-family: 'Outfit', sans-serif;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .product-row {
@@ -279,11 +282,10 @@ a {
 
 .form-input, .form-group input {
   width: 100%;
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--glass-border);
+  padding: 1rem 1.25rem;
+  border: 1px solid #000000;
   border-radius: 0px;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: var(--glass-blur);
+  background: #ffffff;
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   transition: var(--transition);
@@ -292,9 +294,8 @@ a {
 
 .form-input:focus, .form-group input:focus {
   outline: none;
-  border-color: var(--accent-color);
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+  box-shadow: 4px 4px 0px rgba(0,0,0,1);
+  transform: translate(-2px, -2px);
 }
 
 /* Checkout specific */
